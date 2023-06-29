@@ -57,7 +57,7 @@ jobs:
           # Build the Docker image
       - name: Build
         run: |-
-          docker build --tag "gcr.io/$PROJECT_ID/$IMAGE:$TAG" .
+         docker build "gcr.io/$PROJECT_ID/$IMAGE:$TAG" .
                       
       #- name: Build docker image
         #run: |-
