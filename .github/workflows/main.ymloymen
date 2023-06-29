@@ -9,7 +9,7 @@ env:
   PROJECT_ID: ${{secrets.GKE_PROJECT}}
   GKE_CLUSTER: github-actions-gke
   GKE_ZONE: us-central1-a
-  DEPLOYMENT_NAME: github-actions-gke
+  DEPLOYMENT_NAME: github-actions-gke-deployment
   IMAGE: github-actions-gke-image
   TAG: 1.0.0
 
@@ -51,6 +51,9 @@ jobs:
         run: |-
           gcloud --quiet auth configure-docker
       - name: Get GKE Credentials
+        run: |-
+          gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
+      - name: Build docker image
         run: |-
           docker build --tag "gcr.io/$PROJECT_ID/$IMAGE:$TAG"
       - name: Publish Docker Image to GCR
